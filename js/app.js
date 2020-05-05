@@ -1,16 +1,15 @@
 'use strict'
 const cart = document.getElementById('carrito');
-
 const coursesList = document.getElementById('lista-cursos');
-
 const cartList = document.querySelector('#lista-carrito tbody');
+const btnRemoveItems = document.getElementById('vaciar-carrito');
 
 
 //Listeners
 
 coursesList.addEventListener('click', addCourse);
 cart.addEventListener('click', removeCourse);
-
+btnRemoveItems.addEventListener('click', removeItemsCart);
 
 //funciones
 function addCourse(ev) {
@@ -54,6 +53,12 @@ function removeCourse(ev) {
   if (ev.target.classList.contains('borrar-curso')) {
     ev.target.parentElement.parentElement.remove();
 
+  }
+}
+
+function removeItemsCart() {
+  while (cartList.firstChild) {
+    cartList.removeChild(cartList.firstChild);
   }
 
 }
