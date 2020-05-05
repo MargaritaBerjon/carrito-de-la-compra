@@ -3,7 +3,7 @@ const cart = document.getElementById('carrito');
 const coursesList = document.getElementById('lista-cursos');
 const cartList = document.querySelector('#lista-carrito tbody');
 const btnRemoveItems = document.getElementById('vaciar-carrito');
-
+let cardsLS;
 
 //Listeners
 
@@ -78,7 +78,6 @@ function setLocalStorage(card) {
 }
 
 function getLocalStorage() {
-  let cardsLS;
   if (localStorage.getItem('cards')) {
     cardsLS = JSON.parse(localStorage.getItem('cards'));
   } else {
@@ -88,23 +87,13 @@ function getLocalStorage() {
 }
 
 function paintFromLocalStorage() {
-  let cardsLS;
   cardsLS = getLocalStorage();
   cardsLS.map(card => {
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>
-    <img src=${card.image} class="img-cart" />
-    </td>
-    <td>${card.name}</td>
-    <td>${card.price}</td>
-    <td> <a href="#" class="borrar-curso" data-id="${card.id}">X</a></td>
-    `;
-    cartList.appendChild(row);
+    paintCoursesInCart(card)
   })
 }
 
 function removeCourseFromLocalStorage(cardId) {
-  let cardsLS;
   cardsLS = getLocalStorage();
   cardsLS.forEach((cardLS, i) => {
     if (cardLS.id === cardId) {
