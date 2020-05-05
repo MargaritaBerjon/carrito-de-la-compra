@@ -44,6 +44,7 @@ function paintCoursesInCart(card) {
   <td> <a href="#" class="borrar-curso" data-id="${card.id}">X</a></td>
   `;
   cartList.appendChild(row)
+  setLocalStorage(card);
 }
 
 function removeCourse(ev) {
@@ -60,5 +61,23 @@ function removeItemsCart() {
   while (cartList.firstChild) {
     cartList.removeChild(cartList.firstChild);
   }
+}
 
+
+function setLocalStorage(card) {
+  let cards;
+  cards = getLocalStorage();
+  cards.push(card);
+  localStorage.setItem('cards', JSON.stringify(cards));
+
+}
+
+function getLocalStorage() {
+  let coursesLS;
+  if (localStorage.getItem('cards')) {
+    coursesLS = JSON.parse(localStorage.getItem('cards'));
+  } else {
+    coursesLS = [];
+  }
+  return coursesLS;
 }
