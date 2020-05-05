@@ -38,13 +38,11 @@ function paintCoursesInCart(card) {
   const row = document.createElement('tr');
 
   row.innerHTML = `<td>
-  <img scr="${card.image}"> 
+ <img src=${card.image} class="img-cart" />
   </td>
-  <td>
-  ${card.name}
-  </td>
+  <td>${card.name}</td>
+  <td>${card.price}</td>
+  <td> <a href="#" class="borrar-curso" data-id="${card.id}">X</a></td>
   `;
-
   cartList.appendChild(row)
-
 }
