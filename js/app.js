@@ -17,7 +17,6 @@ function addCourse(ev) {
   ev.preventDefault();
   if (ev.target.classList.contains('agregar-carrito')) {
     const card = ev.target.parentElement.parentElement;
-
     readDataCourse(card);
   }
 
