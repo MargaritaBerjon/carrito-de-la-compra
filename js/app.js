@@ -9,6 +9,7 @@ const cartList = document.querySelector('#lista-carrito tbody');
 //Listeners
 
 coursesList.addEventListener('click', addCourse);
+cart.addEventListener('click', removeCourse);
 
 
 //funciones
@@ -29,7 +30,6 @@ function readDataCourse(card) {
     price: card.querySelector('.precio span').innerText,
     id: card.querySelector('a').getAttribute('data-id'),
   }
-  console.log(info);
   paintCoursesInCart(info);
 
 }
@@ -45,4 +45,15 @@ function paintCoursesInCart(card) {
   <td> <a href="#" class="borrar-curso" data-id="${card.id}">X</a></td>
   `;
   cartList.appendChild(row)
+}
+
+function removeCourse(ev) {
+  ev.preventDefault();
+  let course;
+
+  if (ev.target.classList.contains('borrar-curso')) {
+    ev.target.parentElement.parentElement.remove();
+
+  }
+
 }
