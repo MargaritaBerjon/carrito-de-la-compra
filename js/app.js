@@ -10,6 +10,7 @@ const btnRemoveItems = document.getElementById('vaciar-carrito');
 coursesList.addEventListener('click', addCourse);
 cart.addEventListener('click', removeCourse);
 btnRemoveItems.addEventListener('click', removeItemsCart);
+document.addEventListener('DOMContentLoaded', paintFromLocalStorage);
 
 //funciones
 function addCourse(ev) {
@@ -73,11 +74,27 @@ function setLocalStorage(card) {
 }
 
 function getLocalStorage() {
-  let coursesLS;
+  let cardsLS;
   if (localStorage.getItem('cards')) {
-    coursesLS = JSON.parse(localStorage.getItem('cards'));
+    cardsLS = JSON.parse(localStorage.getItem('cards'));
   } else {
-    coursesLS = [];
+    cardsLS = [];
   }
-  return coursesLS;
+  return cardsLS;
+}
+
+function paintFromLocalStorage() {
+  let cardsLS;
+  cardsLS = getLocalStorage();
+  cardsLS.map(card => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>
+    <img src=${card.image} class="img-cart" />
+    </td>
+    <td>${card.name}</td>
+    <td>${card.price}</td>
+    <td> <a href="#" class="borrar-curso" data-id="${card.id}">X</a></td>
+    `;
+    cartList.appendChild(row);
+  })
 }
