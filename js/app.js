@@ -50,18 +50,22 @@ function paintCoursesInCart(card) {
 
 function removeCourse(ev) {
   ev.preventDefault();
-  let course;
-
+  let card,
+    cardId;
   if (ev.target.classList.contains('borrar-curso')) {
     ev.target.parentElement.parentElement.remove();
-
+    card = ev.target.parentElement.parentElement;
+    cardId = card.querySelector('a').getAttribute('data-id');
   }
+  removeCourseFromLocalStorage(cardId);
 }
 
 function removeItemsCart() {
   while (cartList.firstChild) {
     cartList.removeChild(cartList.firstChild);
   }
+
+  removeItemsfromLocalStorage();
 }
 
 
@@ -97,4 +101,20 @@ function paintFromLocalStorage() {
     `;
     cartList.appendChild(row);
   })
+}
+
+function removeCourseFromLocalStorage(cardId) {
+  let cardsLS;
+  cardsLS = getLocalStorage();
+  cardsLS.forEach((cardLS, i) => {
+    if (cardLS.id === cardId) {
+      cardsLS.splice(i, 1);
+    }
+  });
+  localStorage.setItem('cards', JSON.stringify(cardsLS));
+}
+
+
+function removeItemsfromLocalStorage() {
+  localStorage.clear();
 }
